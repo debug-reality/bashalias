@@ -231,8 +231,8 @@ if command -v kubectl &> /dev/null; then
         complete -F __start_kubectl k
         
         # completion for all k aliases
-        for alias_name in $(alias | sed -n "s/alias \(k[^=]*\)='k.*/\1/p"); do
-            complete -F __start_kubectl "$alias_name"
+        for alias_name in $(alias | awk -F'[ =]' '/^alias k/{print $2}'); do
+            complete -F __start_kubectl "$alias_name" 2>/dev/null
         done
     fi
 fi
