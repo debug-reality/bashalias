@@ -224,18 +224,18 @@ alias cyy="cleanyaml | yq e '"'del(.. | select((. == "" and tag == "!!str") or t
 alias cj='cleanjson'
 
 # Enable kubectl completion for k and all k* aliases
-if command -v kubectl &> /dev/null; then
-    source <(kubectl completion bash)
-    if [ $? -eq 0 ]; then
-        # completion for k alias
-        complete -F __start_kubectl k
+# if command -v kubectl &> /dev/null; then
+#     source <(kubectl completion bash)
+#     if [ $? -eq 0 ]; then
+#         # completion for k alias
+#         complete -F __start_kubectl k
         
-        # completion for all k aliases
-        for alias_name in $(alias | awk -F'[ =]' '/^alias k/{print $2}'); do
-            complete -F __start_kubectl "$alias_name" 2>/dev/null
-        done
-    fi
-fi
+#         # completion for all k aliases
+#         for alias_name in $(alias | awk -F'[ =]' '/^alias k/{print $2}'); do
+#             complete -F __start_kubectl "$alias_name" 2>/dev/null
+#         done
+#     fi
+# fi
 
 # Enable kubectl completion for k and all k* aliases
 # if command -v kubectl &>/dev/null; then
@@ -250,6 +250,8 @@ fi
 #     complete -F __start_kubectl $aliasname 2>/dev/null
 #   done
 # fi
+
+complete -F __start_kubectl kgns 2>/dev/null
 
 # Helm aliasses
 alias h='helm'
