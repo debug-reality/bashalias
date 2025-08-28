@@ -30,6 +30,10 @@ alias kcsa='k create sa'
 alias kcsans='k create sa -n'
 alias kcsadry='k create sa --dry-run=client -o yaml'
 alias kcsadryns='k create sa --dry-run=client -o yaml -n'
+alias kccm='k create cm'
+alias kccmns='k create cm -n'
+alias kccmdry='k create cm --dry-run=client -o yaml'
+alias kccmdryns='k create cm --dry-run=client -o yaml -n'
 
 # Apply
 alias ka='k apply'
