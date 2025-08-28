@@ -288,7 +288,7 @@ alias hla='helm list -a'
 alias hrl='helm repo list'
 alias hru='helm repo update'
 # helm template
-alias ht='helm template'
+alias ht='helm template --debug'
 
 # Docker
 alias dk='docker'
@@ -326,7 +326,7 @@ alias pmpull='podman pull'
 
 # Kubectl aliasses autocompletion
 source <(curl -L https://raw.githubusercontent.com/cykerway/complete-alias/refs/heads/master/complete_alias)
-# complete -F _complete_alias "${!BASH_ALIASES[@]}"
+complete -F _complete_alias "${!BASH_ALIASES[@]}"
 
 
 # Run prompt and vim config setup automatically
