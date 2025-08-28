@@ -13,6 +13,9 @@ alias kaf='k apply -f'
 # Force replace rersources
 alias krff='k replace --force -f'
 
+# Config
+
+
 # Get
 alias kg='k get'
 alias kgy='kgy_f() { k get -o yaml "$@" | cy; }; kgy_f'
@@ -292,6 +295,7 @@ alias ht='helm template'
 # Docker build
 alias dob='docker build'
 alias dobt='docker build -t'
+alias dor='docker run'
 alias dormi='docker rmi'
 alias dops='docker ps'
 alias dopsa='docker ps -a'
@@ -301,6 +305,7 @@ alias dopull='docker pull'
 # Podman
 alias pmb='podman build'
 alias pmbt='podman build -t'
+alias pmr='podman run'
 alias pmrmi='podman rmi'
 alias pmps='podman ps'
 alias pmpsa='podman ps -a'
