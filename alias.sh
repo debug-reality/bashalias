@@ -38,20 +38,29 @@ alias kgyy='kgyy_f() { k get -o yaml "$@" | yq e -; }; kgyy_f'
 alias kga='k get all'
 # Pod
 alias kgp='k get pod'
+alias kgpw='k get pod -w'
 alias kgpns='k get pod -n'
+alias kgpnsw='k get pod -w -n'
 alias kgpa='k get pod -A'
+alias kgpaw='k get pod -w -A'
 alias kgpy='kgpy_f() { k get pod -o yaml "$@" | cy; }; kgpy_f'
 alias kgpyy='kgpyy_f() { k get pod -o yaml "$@" | yq e -; }; kgpyy_f'
 # job
 alias kgj='k get job'
+alias kgjw='k get job -w'
 alias kgjns='k get job -n'
+alias kgjnsw='k get job -w -n'
 alias kgja='k get job -A'
+alias kgjaw='k get job -w -A'
 alias kgjy='kgjy_f() { k get job -o yaml "$@" | cy; }; kgjy_f'
 alias kgjyy='kgjyy_f() { k get job -o yaml "$@" | yq e -; }; kgjyy_f'
 # cronjob
 alias kgcj='k get cronjob'
+alias kgcjw='k get cronjob -w'
 alias kgcjns='k get cronjob -n'
+alias kgcjnsw='k get cronjob -w -n'
 alias kgcja='k get cronjob -A'
+alias kgcjaw='k get cronjob -w -A'
 alias kgcjy='kgcjy_f() { k get cronjob -o yaml "$@" | cy; }; kgcjy_f'
 alias kgcjyy='kgcjyy_f() { k get cronjob -o yaml "$@" | yq e -; }; kgcjyy_f'
 # service
@@ -62,8 +71,11 @@ alias kgsvcy='kgsy_f() { k get svc -o yaml "$@" | cy; }; kgsy_f'
 alias kgsvcyy='kgsyy_f() { k get svc -o yaml "$@" | yq e -; }; kgsyy_f'
 # deployment
 alias kgd='k get deployment'
+alias kgdw='k get deployment -w'
 alias kgdns='k get deployment -n'
+alias kgdnsw='k get deployment -w -n'
 alias kgda='k get deployment -A'
+alias kgdaw='k get deployment -w -A'
 alias kgdy='kgdy_f() { k get deployment -o yaml "$@" | cy; }; kgdy_f'
 alias kgdyy='kgdyy_f() { k get deployment -o yaml "$@" | yq e -; }; kgdyy_f'
 # node
@@ -142,7 +154,9 @@ alias kgrqy='kgrqy_f() { k get quota -o yaml "$@" | cy; }; kgrqy_f'
 alias kgrqyy='kgrqyy_f() { k get quota -o yaml "$@" | yq e -; }; kgrqyy_f'
 # Events
 alias kge='k get events'
+alias kgew='k get events -w'
 alias kgens='k get events -n'
+alias kgensw='k get events -w -n'
 
 
 # Labels
