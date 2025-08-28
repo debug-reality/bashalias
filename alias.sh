@@ -4,19 +4,38 @@
 
 alias k='kubectl'
 
-# Create, Apply, Run, Replace
+# Run
 alias krun='k run'
+alias krunns='k run -n'
 alias krundry='k run --dry-run=client -o yaml'
+alias krundryns='k run --dry-run=client -o yaml -n'
+
+# Create
 alias kc='k create'
 alias kcdry='k create --dry-run=client -o yaml'
 alias kcns='k create ns'
 alias kcd='k create deployment'
+alias kcdns='k create deployment -n'
 alias kcddry='k create deployment --dry-run=client -o yaml'
+alias kcddryns='k create deployment --dry-run=client -o yaml -n'
+alias kcj='k create job'
+alias kcjns='k create job -n'
+alias kcjdry='k create job --dry-run=client -o yaml'
+alias kcjdryns='k create job --dry-run=client -o yaml -n'
+alias kccj='k create cronjob'
+alias kccjns='k create cronjob -n'
+alias kcjdry='k create cronjob --dry-run=client -o yaml'
+alias kcjdryns='k create cronjob --dry-run=client -o yaml -n'
+alias kcsa='k create sa'
+alias kcsans='k create sa -n'
+alias kcsadry='k create sa --dry-run=client -o yaml'
+alias kcsadryns='k create sa --dry-run=client -o yaml -n'
 
-
+# Apply
 alias ka='k apply'
 alias kaf='k apply -f'
-# Force replace rersources
+
+# Replace
 alias krff='k replace --force -f'
 
 # Config, Context and Namespace
