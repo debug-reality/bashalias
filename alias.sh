@@ -1,20 +1,26 @@
 # Usage: source <(curl -L https://tinyurl.com/k8salias)
 # Usage: source <(curl -L https://bit.ly/kbash)
+# Manitainer: Sandeep B Hulyalkar
 
 alias k='kubectl'
 
 # Create, Apply, Run, Replace
 alias krun='k run'
-alias krund='k run --dry-run=client -o yaml'
+alias krundry='k run --dry-run=client -o yaml'
 alias kc='k create'
-alias kcd='k create --dry-run=client -o yaml'
+alias kcdry='k create --dry-run=client -o yaml'
 alias ka='k apply'
 alias kaf='k apply -f'
 # Force replace rersources
 alias krff='k replace --force -f'
 
-# Config
+# Config, Context and Namespace
+alias kctx='k config use-context'
+alias knsf='k config set-context --current --namespace'
+alias kns='fn(){ k get ns --field-selector "metadata.name=$1" --ignore-not-found --no-headers | grep -E "^.+$" 1>/dev/null && k config set-context --current --namespace $1 || echo "No namespace \"$1\" found." && return 1;  unset -f fn; }; fn'
 
+# Alias to display current context and namespace
+# alias ctxns='echo "Context: $(k config current-context), Namespace: $(k config view --minify --output 'jsonpath={..namespace}')"'
 
 # Get
 alias kg='k get'
@@ -255,14 +261,6 @@ alias kexpl='k explain'
 alias kexplr='k explain --recursive=true'
 
 
-# Context and Namespace
-alias kctx='k config use-context'
-alias knsf='k config set-context --current --namespace'
-alias kns='fn(){ k get ns --field-selector "metadata.name=$1" --ignore-not-found --no-headers | grep -E "^.+$" 1>/dev/null && k config set-context --current --namespace $1 || echo "No namespace \"$1\" found." && return 1;  unset -f fn; }; fn'
-
-# Alias to display current context and namespace
-# alias ctxns='echo "Context: $(k config current-context), Namespace: $(k config view --minify --output 'jsonpath={..namespace}')"'
-
 alias kx='k exec'
 alias kl='k logs'
 alias klf='k logs -f'
@@ -278,10 +276,10 @@ alias cj='cleanjson'
 # Helm aliasses
 alias h='helm'
 alias hin='helm install'
-alias hind='helm install --dry-run --debug'
+alias hindr='helm install --dry-run --debug'
 # Upgrade or Install
 alias hup='helm upgrade --install'
-alias hupd='helm upgrade --install --dry-run --debug'
+alias hupdr='helm upgrade --install --dry-run --debug'
 alias hun='helm uninstall'
 # Helm releases
 alias hl='helm list'
@@ -297,7 +295,10 @@ alias do='docker'
 alias dob='docker build'
 alias dobt='docker build -t'
 alias dor='docker run'
-alias doimgls='docker image ls'
+alias dornm='docker run --name'
+alias dorde='docker run --detach'
+alias dordenm='docker run --detach --name'
+alias doimgs='docker images'
 alias dormi='docker rmi'
 alias dops='docker ps'
 alias dopsa='docker ps -a'
@@ -309,7 +310,10 @@ alias pm='podman'
 alias pmb='podman build'
 alias pmbt='podman build -t'
 alias pmr='podman run'
-alias pmimgls='podman image ls'
+alias pmrnm='podman run --name'
+alias pmrde='podman run --detach'
+alias pmrdenm='podman run --detach --name'
+alias pmimgs='podman images'
 alias pmrmi='podman rmi'
 alias pmps='podman ps'
 alias pmpsa='podman ps -a'
