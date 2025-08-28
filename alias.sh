@@ -293,6 +293,7 @@ alias hru='helm repo update'
 alias ht='helm template'
 
 # Docker build
+alias do='docker'
 alias dob='docker build'
 alias dobt='docker build -t'
 alias dor='docker run'
@@ -304,6 +305,7 @@ alias dopush='docker push'
 alias dopull='docker pull'
 
 # Podman
+alias pm='podman'
 alias pmb='podman build'
 alias pmbt='podman build -t'
 alias pmr='podman run'
