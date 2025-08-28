@@ -9,6 +9,11 @@ alias krun='k run'
 alias krundry='k run --dry-run=client -o yaml'
 alias kc='k create'
 alias kcdry='k create --dry-run=client -o yaml'
+alias kcns='k create ns'
+alias kcd='k create deployment'
+alias kcddry='k create deployment --dry-run=client -o yaml'
+
+
 alias ka='k apply'
 alias kaf='k apply -f'
 # Force replace rersources
