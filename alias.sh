@@ -308,8 +308,13 @@ alias kexplr='k explain --recursive=true'
 
 
 alias kx='k exec'
+alias kxns='k exec -n'
+alias kxit='k exec -it'
+alias kxitns='k exec -it -n'
 alias kl='k logs'
+alias klns='k logs -n'
 alias klf='k logs -f'
+alias klfns='k logs -f -n'
 
 alias kshell='k shell'
 alias kgansr='k api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found'
