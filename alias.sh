@@ -15,6 +15,10 @@ alias kaf='k apply -f'
 alias krff='k replace --force -f'
 
 # Config, Context and Namespace
+alias kcfg='k config'
+alias kcfggc='k config get-contexts'
+alias kcfgcc='k config current-context'
+alias kcfguc='k config use-context'
 alias kctx='k config use-context'
 alias knsf='k config set-context --current --namespace'
 alias kns='fn(){ k get ns --field-selector "metadata.name=$1" --ignore-not-found --no-headers | grep -E "^.+$" 1>/dev/null && k config set-context --current --namespace $1 || echo "No namespace \"$1\" found." && return 1;  unset -f fn; }; fn'
