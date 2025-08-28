@@ -290,7 +290,7 @@ alias hru='helm repo update'
 # helm template
 alias ht='helm template'
 
-# Docker build
+# Docker
 alias do='docker'
 alias dob='docker build'
 alias dobt='docker build -t'
