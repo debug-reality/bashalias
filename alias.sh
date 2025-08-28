@@ -251,7 +251,7 @@ alias cj='cleanjson'
 #   done
 # fi
 
-complete -F __start_kubectl kgns 2>/dev/null
+complete -o default -F __start_kubectl kgns
 
 # Helm aliasses
 alias h='helm'
