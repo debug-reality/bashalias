@@ -224,28 +224,28 @@ alias cyy="cleanyaml | yq e '"'del(.. | select((. == "" and tag == "!!str") or t
 alias cj='cleanjson'
 
 # Enable kubectl completion for k and all k* aliases
-# if command -v kubectl &>/dev/null; then
-#   source <(kubectl completion bash)
-#   complete -F __start_kubectl k
-#   # Enable for all k* aliases that are kubectl wrappers
-#   for aliasname in kg kgp kgpy kgj kgjy kgs kgsy kgd kgdy kgn kgny kgns kgi kgiy kgsec kgsecy kgpv kgpvc kgsc \
-#     kgy kgyy kga kgpyy kgjyy kgsyy kgdyy kgnyy kgnsy kgnsyy kgiyy kgsecyy kgpvcy kgpvcyy kgscy kgscyy \
-#     kcd ka kaf krun krund kc kdel kdelf kdelp kdelj kdeld kdels kdelns kdeli kdelsec kdelfin \
-#     kdp kdj kdd kds kdn kdns kdi kdsec kdpv kdpvc kdsc ke kep kej ked kes kens kei kesec \
-#     kx kl klf kshell kgansr kctx knsf kns; do
-#     complete -F __start_kubectl $aliasname 2>/dev/null
-#   done
-# fi
-
-# Enable kubectl completion for all k* aliases dynamically
 if command -v kubectl &>/dev/null; then
   source <(kubectl completion bash)
   complete -F __start_kubectl k
-  # Dynamically assign completion to all k* aliases
-  for aliasname in $(alias | awk -F'[ =]' '/^alias k/{print $2}'); do
-    complete -F __start_kubectl "$aliasname" 2>/dev/null
+  # Enable for all k* aliases that are kubectl wrappers
+  for aliasname in kg kgp kgpy kgj kgjy kgs kgsy kgd kgdy kgn kgny kgns kgi kgiy kgsec kgsecy kgpv kgpvc kgsc \
+    kgy kgyy kga kgpyy kgjyy kgsyy kgdyy kgnyy kgnsy kgnsyy kgiyy kgsecyy kgpvcy kgpvcyy kgscy kgscyy \
+    kcd ka kaf krun krund kc kdel kdelf kdelp kdelj kdeld kdels kdelns kdeli kdelsec kdelfin \
+    kdp kdj kdd kds kdn kdns kdi kdsec kdpv kdpvc kdsc ke kep kej ked kes kens kei kesec \
+    kx kl klf kshell kgansr kctx knsf kns; do
+    complete -F __start_kubectl $aliasname 2>/dev/null
   done
 fi
+
+# Enable kubectl completion for all k* aliases dynamically
+# if command -v kubectl &>/dev/null; then
+#   source <(kubectl completion bash)
+#   complete -F __start_kubectl k
+#   # Dynamically assign completion to all k* aliases
+#   for aliasname in $(alias | awk -F'[ =]' '/^alias k/{print $2}'); do
+#     complete -F __start_kubectl "$aliasname" 2>/dev/null
+#   done
+# fi
 
 # Helm aliasses
 alias h='helm'
