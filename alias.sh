@@ -1,84 +1,7 @@
-# Usage: source <(curl -L https://jtyr.io/source/kubectl)
+# Usage: source <(curl -L https://tinyurl.com/k8salias)
+# Usage: source <(curl -L https://bit.ly/kbash)
 
-TOOLS_DIR="${TOOLS_DIR:-/tmp/tools}"
-TOOLS_BIN_DIR="$TOOLS_DIR/bin"
-
-function get_goyq() {
-    YQ="$TOOLS_BIN_DIR/yq"
-    YQ_VERSION='4.30.4'
-
-    if [[ -e $YQ ]]; then
-        return
-    fi
-
-    curl -fSL -o "$YQ" "https://github.com/mikefarah/yq/releases/download/v$YQ_VERSION/yq_linux_amd64"
-    chmod +x "$YQ"
-}
-
-function get_gojq() {
-    GOJQ="$TOOLS_BIN_DIR/gojq"
-    GOJQ_VERSION='0.12.9'
-
-    if [[ -e $GOJQ ]]; then
-        return
-    fi
-
-    curl -fSL -o - "https://github.com/itchyny/gojq/releases/download/v$GOJQ_VERSION/gojq_v${GOJQ_VERSION}_linux_amd64.tar.gz" | tar xzf - -C "$TOOLS_DIR" gojq_v${GOJQ_VERSION}_linux_amd64/gojq
-    mv "$TOOLS_DIR/gojq_v${GOJQ_VERSION}_linux_amd64/gojq" "$TOOLS_BIN_DIR"
-    rm -fr "$TOOLS_DIR/gojq_v${GOJQ_VERSION}_linux_amd64"
-}
-
-function get_kubecolor() {
-    KUBECOLOR="$TOOLS_BIN_DIR/kubecolor"
-    KUBECOLOR_VERSION='0.0.21'
-
-    if [[ -e $KUBECOLOR ]]; then
-        return
-    fi
-
-    curl -fSL -o - "https://github.com/kubecolor/kubecolor/releases/download/v$KUBECOLOR_VERSION/kubecolor_${KUBECOLOR_VERSION}_Linux_x86_64.tar.gz" | tar xzf - -C "$TOOLS_BIN_DIR" kubecolor
-}
-
-function get_tools() {
-    mkdir -p "$TOOLS_BIN_DIR"
-
-    if [[ ${PATH:0:${#TOOLS_BIN_DIR}} != "$TOOLS_BIN_DIR" ]]; then
-        export PATH="$TOOLS_BIN_DIR:$PATH"
-    fi
-
-    get_goyq
-    get_gojq
-    get_kubecolor
-}
-
-function set_ps1() {
-    PS1='($(kubectl config get-contexts --no-headers | awk "function n(x) {return x==\"\"?\"default\":x} \\$1 == \"*\" {print(\"\[\033[01;33m\]\"\\$2\"\[\033[00m\]/\[\033[01;36m\]\"n(\\$5)\"\[\033[00m\]\")}")) \u@\h \[\033[01;34m\]\w\[\033[00m\] \[\033[01;32m\]\$\[\033[00m\] '
-}
-
-function config_vim() {
-    cat <<END > ~/.vimrc
-set paste
-set pastetoggle=<F4>
-set tabstop=2
-set shiftwidth=2
-set expandtab
-END
-}
-
-function config_tmux() {
-    cat <<END > ~/.tmux.conf
-unbind-key C-b
-set-option -g prefix C-a
-bind-key C-a send-prefix
-#set -g mouse on
-END
-}
-
-if [[ -n $KUBECOLOR ]] && [[ -e $KUBECOLOR ]]; then
-    alias k='kubecolor'
-else
-    alias k='kubectl'
-fi
+alias k='kubectl'
 
 # Create, Apply, Run, Replace
 alias krun='k run'
@@ -95,91 +18,217 @@ alias kg='k get'
 alias kgy='kgy_f() { k get -o yaml "$@" | cy; }; kgy_f'
 alias kgyy='kgyy_f() { k get -o yaml "$@" | yq e -; }; kgyy_f'
 alias kga='k get all'
+# Pod
 alias kgp='k get pod'
+alias kgpns='k get pod -n'
+alias kgpa='k get pod -A'
 alias kgpy='kgpy_f() { k get pod -o yaml "$@" | cy; }; kgpy_f'
 alias kgpyy='kgpyy_f() { k get pod -o yaml "$@" | yq e -; }; kgpyy_f'
+# job
 alias kgj='k get job'
+alias kgjns='k get job -n'
+alias kgja='k get job -A'
 alias kgjy='kgjy_f() { k get job -o yaml "$@" | cy; }; kgjy_f'
 alias kgjyy='kgjyy_f() { k get job -o yaml "$@" | yq e -; }; kgjyy_f'
+# cronjob
 alias kgcj='k get cronjob'
+alias kgcjns='k get cronjob -n'
+alias kgcja='k get cronjob -A'
 alias kgcjy='kgcjy_f() { k get cronjob -o yaml "$@" | cy; }; kgcjy_f'
 alias kgcjyy='kgcjyy_f() { k get cronjob -o yaml "$@" | yq e -; }; kgcjyy_f'
-alias kgs='k get svc'
-alias kgsy='kgsy_f() { k get svc -o yaml "$@" | cy; }; kgsy_f'
-alias kgsyy='kgsyy_f() { k get svc -o yaml "$@" | yq e -; }; kgsyy_f'
+# service
+alias kgsvc='k get svc'
+alias kgsvcns='k get svc -n'
+alias kgsvca='k get svc -A'
+alias kgsvcy='kgsy_f() { k get svc -o yaml "$@" | cy; }; kgsy_f'
+alias kgsvcyy='kgsyy_f() { k get svc -o yaml "$@" | yq e -; }; kgsyy_f'
+# deployment
 alias kgd='k get deployment'
+alias kgdns='k get deployment -n'
+alias kgda='k get deployment -A'
 alias kgdy='kgdy_f() { k get deployment -o yaml "$@" | cy; }; kgdy_f'
 alias kgdyy='kgdyy_f() { k get deployment -o yaml "$@" | yq e -; }; kgdyy_f'
+# node
 alias kgn='k get node'
 alias kgny='kgny_f() { k get node -o yaml "$@" | cy; }; kgny_f'
 alias kgnyy='kgnyy_f() { k get node -o yaml "$@" | yq e -; }; kgnyy_f'
+# namespace
 alias kgns='k get ns'
 alias kgnsy='kgnsy_f() { k get ns -o yaml "$@" | cy; }; kgnsy_f'
 alias kgnsyy='kgnsyy_f() { k get ns -o yaml "$@" | yq e -; }; kgnsyy_f'
-alias kgi='k get ingress'
-alias kgiy='kgiy_f() { k get ingress -o yaml "$@" | cy; }; kgiy_f'
-alias kgiyy='kgiyy_f() { k get ingress -o yaml "$@" | yq e -; }; kgiyy_f'
+# ingress
+alias kging='k get ingress'
+alias kgingns='k get ingress -n'
+alias kginga='k get ingress -A'
+alias kgingy='kgiy_f() { k get ingress -o yaml "$@" | cy; }; kgiy_f'
+alias kgingyy='kgiyy_f() { k get ingress -o yaml "$@" | yq e -; }; kgiyy_f'
+# secret
 alias kgsec='k get secret'
+alias kgsecns='k get secret -n'
+alias kgseca='k get secret -A'
 alias kgsecy='kgsecy_f() { k get secret -o yaml "$@" | cy; }; kgsecy_f'
 alias kgsecyy='kgsecyy_f() { k get secret -o yaml "$@" | yq e -; }; kgsecyy_f'
+# pv
 alias kgpv='k get pv'
 alias kgpvy='kgpvy_f() { k get pv -o yaml "$@" | cy; }; kgpvy_f'
 alias kgpvyy='kgpvyy_f() { k get pv -o yaml "$@" | yq e -; }; kgpvyy_f'
+# pvc
 alias kgpvc='k get pvc'
+alias kgpvcns='k get pvc -n'
+alias kgpvca='k get pvc -A'
 alias kgpvcy='kgpvcy_f() { k get pvc -o yaml "$@" | cy; }; kgpvcy_f'
 alias kgpvcyy='kgpvcyy_f() { k get pvc -o yaml "$@" | yq e -; }; kgpvcyy_f'
+# sc
 alias kgsc='k get sc'
 alias kgscy='kgscy_f() { k get sc -o yaml "$@" | cy; }; kgscy_f'
 alias kgscyy='kgscyy_f() { k get sc -o yaml "$@" | yq e -; }; kgscyy_f'
+# role
+alias kgr='k get role'
+alias kgrns='k get role -n'
+alias kgra='k get role -A'
+alias kgry='kgry_f() { k get role -o yaml "$@" | cy; }; kgry_f'
+alias kgryy='kgryy_f() { k get role -o yaml "$@" | yq e -; }; kgryy_f'
+# rolebinding
+alias kgrb='k get rolebinding'
+alias kgrbns='k get rolebinding -n'
+alias kgrba='k get rolebinding -A'
+alias kgrby='kgrby_f() { k get rolebinding -o yaml "$@" | cy; }; kgrby_f'
+alias kgrbyy='kgrbyy_f() { k get rolebinding -o yaml "$@" | yq e -; }; kgrbyy_f'
+# clusterrole
+alias kgcr='k get clusterrole'
+alias kgcry='kgcry_f() { k get clusterrole -o yaml "$@" | cy; }; kgcry_f'
+alias kgcryy='kgcryy_f() { k get clusterrole -o yaml "$@" | yq e -; }; kgcryy_f'
+# clusterrolebinding
+alias kgcrb='k get clusterrolebinding'
+alias kgcrby='kgcrby_f() { k get clusterrolebinding -o yaml "$@" | cy; }; kgcrby_f'
+alias kgcrbyy='kgcrbyy_f() { k get clusterrolebinding -o yaml "$@" | yq e -; }; kgcrbyy_f'
+# configmap
+alias kgcm='k get cm'
+alias kgcmns='k get cm -n'
+alias kgcma='k get cm -A'
+alias kgcmy='kgcmy_f() { k get cm -o yaml "$@" | cy; }; kgcmy_f'
+alias kgcmyy='kgcmyy_f() { k get cm -o yaml "$@" | yq e -; }; kgcmyy_f'
+# Network policy
+alias kgnp='k get netpol'
+alias kgnpns='k get netpol -n'
+alias kgnpa='k get netpol -A'
+alias kgnpy='kgnpy_f() { k get netpol -o yaml "$@" | cy; }; kgnpy_f'
+alias kgnpyy='kgnpyy_f() { k get netpol -o yaml "$@" | yq e -; }; kgnpyy_f'
+# limit range
+alias kglr='k get limits'
+alias kglry='kglry_f() { k get limits -o yaml "$@" | cy; }; kglry_f'
+alias kglryy='kglryy_f() { k get limits -o yaml "$@" | yq e -; }; kglryy_f'
+# Resource quota
+alias kgrq='k get quota'
+alias kgrqy='kgrqy_f() { k get quota -o yaml "$@" | cy; }; kgrqy_f'
+alias kgrqyy='kgrqyy_f() { k get quota -o yaml "$@" | yq e -; }; kgrqyy_f'
+# Events
+alias kge='k get events'
+alias kgens='k get events -n'
+
 
 # Labels
-alias kgl='kgl_f() { k get "$@" -o json | yq e '.metadata.labels' -; }; kgl_f'
-alias kgpl='kgpl_f() { k get pod "$@" -o json | yq e '.metadata.labels' -; }; kgpl_f'
-alias kgdl='kgdl_f() { k get deployment "$@" -o json | yq e '.metadata.labels' -; }; kgdl_f'
+alias kglb='kgl_f() { k get "$@" -o yaml | yq e '.metadata.labels' -; }; kgl_f'
+alias kgplb='kgpl_f() { k get pod "$@" -o yaml | yq e '.metadata.labels' -; }; kgpl_f'
+alias kgdlb='kgdl_f() { k get deployment "$@" -o yaml | yq e '.metadata.labels' -; }; kgdl_f'
 
 # Annotations
-alias kgan='kgan_f() { k get "$@" -o json | yq e '.metadata.annotations' -; }; kgan_f'
-alias kgpan='kgpan_f() { k get pod "$@" -o json | yq e '.metadata.annotations' -; }; kgpan_f'
-alias kgdan='kgdan_f() { k get deployment "$@" -o json | yq e '.metadata.annotations' -; }; kgdan_f'
+alias kgan='kgan_f() { k get "$@" -o yaml | yq e '.metadata.annotations' -; }; kgan_f'
+alias kgpan='kgpan_f() { k get pod "$@" -o yaml | yq e '.metadata.annotations' -; }; kgpan_f'
+alias kgdan='kgdan_f() { k get deployment "$@" -o yaml | yq e '.metadata.annotations' -; }; kgdan_f'
 
 # Describe
 alias kd='k describe'
 alias kdp='k describe pod'
+alias kdpns='k describe pod -n'
 alias kdj='k describe job'
+alias kdjns='k describe job -n'
 alias kdcj='k describe cronjob'
+alias kdcjns='k describe cronjob -n'
+alias kdsvc='k describe svc'
+alias kdsvcns='k describe svc -n'
 alias kdd='k describe deployment'
-alias kds='k describe svc'
+alias kddns='k describe deployment -n'
 alias kdn='k describe node'
 alias kdns='k describe namespace'
-alias kdi='k describe ingress'
+alias kding='k describe ingress'
+alias kdingns='k describe ingress -n'
 alias kdsec='k describe secret'
+alias kdsecns='k describe secret -n'
 alias kdpv='k describe pv'
 alias kdpvc='k describe pvc'
+alias kdpvcns='k describe pvc -n'
 alias kdsc='k describe sc'
+alias kdr='k describe role'
+alias kdrns='k describe role -n'
+alias kdrb='k describe rolebinding'
+alias kdrbns='k describe rolebinding -n'
+alias kdcr='k describe clusterrole'
+alias kdcrb='k describe clusterrolebinding'
+alias kdc='k describe cm'
+alias kdcns='k describe cm -n'
+alias kdnp='k describe netpol'
+alias kdnpns='k describe netpol -n'
+alias kdlr='k describe limits'
+alias kdrq='k describe quota'
+
 
 # Edit
 alias ke='k edit'
 alias kep='k edit pod'
+alias kepns='k edit pod -n'
 alias kej='k edit job'
+alias kejns='k edit job -n'
 alias kecj='k edit cronjob'
+alias kecjns='k edit cronjob -n'
 alias ked='k edit deployment'
-alias kes='k edit svc'
+alias kedns='k edit deployment -n'
+alias kesvc='k edit svc'
+alias kesvcns='k edit svc -n'
 alias kens='k edit ns'
-alias kei='k edit ingress'
+alias keing='k edit ingress'
+alias keingns='k edit ingress -n'
 alias kesec='k edit secret'
+alias kesecns='k edit secret -n'
+alias kesc='k edit sc'
+alias kecr='k edit clusterrole'
+alias kecrb='k edit clusterrolebinding'
+alias kecm='k edit cm'
+alias kecmns='k edit cm -n'
+alias kenp='k edit netpol'
+alias kenpns='k edit netpol -n'
+alias kelr='k edit limits'
+alias kerq='k edit quota'
+
 
 # Delete
 alias kdel='k delete'
 alias kdelf='k delete -f'
 alias kdelp='k delete pod'
+alias kdelpns='k delete pod -n'
 alias kdelj='k delete job'
+alias kdeljns='k delete job -n'
 alias kdelcj='k delete cronjob'
+alias kdelcjns='k delete cronjob -n'
 alias kdeld='k delete deployment'
-alias kdels='k delete svc'
+alias kdeldns='k delete deployment -n'
+alias kdelsvc='k delete svc'
+alias kdelsvcns='k delete svc -n'
 alias kdelns='k delete ns'
-alias kdeli='k delete ingress'
+alias kdeling='k delete ingress'
+alias kdelingns='k delete ingress -n'
 alias kdelsec='k delete secret'
+alias kdelsecns='k delete secret -n'
 alias kdelsc='k delete sc'
+alias kdelcr='k delete clusterrole'
+alias kdelcrb='k delete clusterrolebinding'
+alias kdelcm='k delete cm'
+alias kdelcmns='k delete cm -n'
+alias kdelnp='k delete netpol'
+alias kdelnpns='k delete netpol -n'
+alias kdellr='k delete limits'
+alias kdelrq='k delete quota'
+
 alias kdelfin='k patch -p "{\"metadata\":{\"finalizers\":null}}" --type=merge'
 
 # Expose
@@ -223,40 +272,6 @@ alias cy='cleanyaml'
 alias cyy="cleanyaml | yq e '"'del(.. | select((. == "" and tag == "!!str") or tag == "!!null")) | del(... | select(tag == "!!map" and length == 0))'"' -"
 alias cj='cleanjson'
 
-# Enable kubectl completion for k and all k* aliases
-# if command -v kubectl &> /dev/null; then
-#     source <(kubectl completion bash)
-#     if [ $? -eq 0 ]; then
-#         # completion for k alias
-#         complete -F __start_kubectl k
-        
-#         # completion for all k aliases
-#         for alias_name in $(alias | awk -F'[ =]' '/^alias k/{print $2}'); do
-#             complete -F __start_kubectl "$alias_name" 2>/dev/null
-#         done
-#     fi
-# fi
-
-# Enable kubectl completion for k and all k* aliases
-# if command -v kubectl &>/dev/null; then
-#   source <(kubectl completion bash)
-#   complete -F __start_kubectl k
-#   # Enable for all k* aliases that are kubectl wrappers
-#   for aliasname in kg kgp kgpy kgj kgjy kgs kgsy kgd kgdy kgn kgny kgns kgi kgiy kgsec kgsecy kgpv kgpvc kgsc \
-#     kgy kgyy kga kgpyy kgjyy kgsyy kgdyy kgnyy kgnsy kgnsyy kgiyy kgsecyy kgpvcy kgpvcyy kgscy kgscyy \
-#     kcd ka kaf krun krund kc kdel kdelf kdelp kdelj kdeld kdels kdelns kdeli kdelsec kdelfin \
-#     kdp kdj kdd kds kdn kdns kdi kdsec kdpv kdpvc kdsc ke kep kej ked kes kens kei kesec \
-#     kx kl klf kshell kgansr kctx knsf kns; do
-#     complete -F __start_kubectl $aliasname 2>/dev/null
-#   done
-# fi
-
-
-# curl -L -o ~/complete_alias https://raw.githubusercontent.com/cykerway/complete-alias/refs/heads/master/complete_alias
-# echo ". ~/complete_alias" >> ~/.bash_completion
-
-# complete -F _complete_alias kgns
-
 # Helm aliasses
 alias h='helm'
 alias hin='helm install'
@@ -292,8 +307,35 @@ alias pmpsa='podman ps -a'
 alias pmpush='podman push'
 alias pmpull='podman pull'
 
+# Kubectl aliasses autocompletion
+source <(curl -L https://raw.githubusercontent.com/cykerway/complete-alias/refs/heads/master/complete_alias)
+complete -F _complete_alias "${!BASH_ALIASES[@]}"
+
+
 # Run prompt and vim config setup automatically
+
+function set_ps1() {
+    PS1='($(kubectl config get-contexts --no-headers | awk "function n(x) {return x==\"\"?\"default\":x} \\$1 == \"*\" {print(\"\[\033[01;33m\]\"\\$2\"\[\033[00m\]/\[\033[01;36m\]\"n(\\$5)\"\[\033[00m\]\")}")) \u@\h \[\033[01;34m\]\w\[\033[00m\] \[\033[01;32m\]\$\[\033[00m\] '
+}
+
+function config_vim() {
+    cat <<END > ~/.vimrc
+set paste
+set pastetoggle=<F4>
+set tabstop=2
+set shiftwidth=2
+set expandtab
+END
+}
+
 set_ps1
 config_vim
-source <(curl -L https://tinyurl.com/completealias)
-complete -F _complete_alias "${!BASH_ALIASES[@]}"
+
+# cat >> ~/.inputrc <<'EOF'
+# "\e[A": history-search-backward
+# "\e[B": history-search-forward
+# set show-all-if-ambiguous on
+# set completion-ignore-case on
+# EOF
+
+# bind -f  ~/.inputrc
