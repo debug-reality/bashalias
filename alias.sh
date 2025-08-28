@@ -251,7 +251,11 @@ alias cj='cleanjson'
 #   done
 # fi
 
-complete -o default -F __start_kubectl_get_ns kgns
+
+curl -L -o ~/complete_alias https://github.com/cykerway/complete-alias/blob/master/complete_alias
+echo ". ~/complete_alias" >> ~/.bash_completion
+
+complete -F _complete_alias kgns
 
 # Helm aliasses
 alias h='helm'
