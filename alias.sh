@@ -252,10 +252,10 @@ alias cj='cleanjson'
 # fi
 
 
-curl -L -o ~/complete_alias https://raw.githubusercontent.com/cykerway/complete-alias/refs/heads/master/complete_alias
-echo ". ~/complete_alias" >> ~/.bash_completion
+# curl -L -o ~/complete_alias https://raw.githubusercontent.com/cykerway/complete-alias/refs/heads/master/complete_alias
+# echo ". ~/complete_alias" >> ~/.bash_completion
 
-complete -F _complete_alias kgns
+# complete -F _complete_alias kgns
 
 # Helm aliasses
 alias h='helm'
@@ -295,3 +295,5 @@ alias pmpull='podman pull'
 # Run prompt and vim config setup automatically
 set_ps1
 config_vim
+source <(curl -L https://tinyurl.com/completealias)
+complete -F _complete_alias "${!BASH_ALIASES[@]}"
