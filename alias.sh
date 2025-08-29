@@ -295,11 +295,11 @@ alias kdelrq='k delete quota'
 alias kdelfin='k patch -p "{\"metadata\":{\"finalizers\":null}}" --type=merge'
 
 # Expose
-alias kex='k expose'
-alias kexp='k expose pod'
-alias kexpns='k expose pod -n'
-alias kexd='k expose deploy'
-alias kexpdns='k expose deploy -n'
+alias kexp='k expose'
+alias kexpp='k expose pod'
+alias kexppns='k expose pod -n'
+alias kexpd='k expose deploy'
+alias kexppdns='k expose deploy -n'
 
 
 # Other
@@ -317,10 +317,10 @@ alias kexpl='k explain'
 alias kexplr='k explain --recursive=true'
 
 
-alias kx='k exec'
-alias kxns='k exec -n'
-alias kxit='k exec -it'
-alias kxitns='k exec -it -n'
+alias kexe='k exec'
+alias kexens='k exec -n'
+alias kexeit='k exec -it'
+alias kexeitns='k exec -it -n'
 alias kl='k logs --all-containers --ignore-errors'
 alias klns='k logs --all-containers --ignore-errors -n'
 alias klf='k logs --all-containers --ignore-errors -f'
