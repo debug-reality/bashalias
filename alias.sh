@@ -5,10 +5,10 @@
 alias k='kubectl'
 
 # Run
-alias krun='k run'
-alias krunns='k run -n'
-alias krundry='k run --dry-run=client -o yaml'
-alias krundryns='k run --dry-run=client -o yaml -n'
+alias kr='k run'
+alias krns='k run -n'
+alias krdry='k run --dry-run=client -o yaml'
+alias krdryns='k run --dry-run=client -o yaml -n'
 
 # Create
 alias kc='k create'
@@ -40,7 +40,7 @@ alias ka='k apply'
 alias kaf='k apply -f'
 
 # Replace
-alias krff='k replace --force -f'
+alias kreff='k replace --force -f'
 
 # Config, Context and Namespace
 alias kcf='k config'
