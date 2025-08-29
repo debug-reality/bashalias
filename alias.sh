@@ -195,10 +195,18 @@ alias klbdns='k label deployment -n'
 alias klbns='k label ns'
 
 
-# Annotations
+# Get Annotations
 alias kgan='kgan_f() { k get "$@" -o yaml | yq e '.metadata.annotations' -; }; kgan_f'
 alias kgpan='kgpan_f() { k get pod "$@" -o yaml | yq e '.metadata.annotations' -; }; kgpan_f'
 alias kgdan='kgdan_f() { k get deployment "$@" -o yaml | yq e '.metadata.annotations' -; }; kgdan_f'
+# Annotation
+alias kan='k annotate'
+alias kanp='k annotate pod'
+alias kanpns='k annotate pod -n'
+alias kand='k annotate deployment'
+alias kandns='k annotate deployment -n'
+alias kanns='k annotate ns'
+
 
 # Describe
 alias kd='k describe'
