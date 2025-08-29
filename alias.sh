@@ -34,6 +34,11 @@ alias kccm='k create cm'
 alias kccmns='k create cm -n'
 alias kccmdry='k create cm --dry-run=client -o yaml'
 alias kccmdryns='k create cm --dry-run=client -o yaml -n'
+#  secret
+alias kcsec='k create secret generic'
+alias kcsecns='k create secret generic -n'
+alias kcsecdry='k create secret generic --dry-run=client -o yaml'
+alias kcsecdryns='k create secret generic --dry-run=client -o yaml -n'
 
 # Apply
 alias ka='k apply'
