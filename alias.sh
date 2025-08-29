@@ -344,12 +344,12 @@ alias cj='cleanjson'
 
 # Helm aliasses
 alias h='helm'
-alias hi='helm install'
-alias hidr='helm install --dry-run --debug'
+alias hin='helm install'
+alias hindr='helm install --dry-run --debug'
 # Upgrade or Install
 alias hup='helm upgrade --install'
 alias hupdr='helm upgrade --install --dry-run --debug'
-alias hu='helm uninstall'
+alias hun='helm uninstall'
 # Helm releases
 alias hl='helm list'
 alias hlns='helm list -n'
