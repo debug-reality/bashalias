@@ -305,14 +305,17 @@ alias kdelfin='k patch -p "{\"metadata\":{\"finalizers\":null}}" --type=merge'
 # Expose
 alias kexp='k expose'
 alias kexpp='k expose pod'
+alias kexppdry='k expose pod --dry-run=client -o yaml'
 alias kexppns='k expose pod -n'
+alias kexppdryns='k expose pod --dry-run=client -o yaml -n'
 alias kexpd='k expose deploy'
-alias kexppdns='k expose deploy -n'
+alias kexpddry='k expose deploy --dry-run=client -o yaml'
+alias kexpdns='k expose deploy -n'
+alias kexpddryns='k expose deploy --dry-run=client -o yaml -n'
 
 
 # Other
 alias kv='k version --short'
-
 alias kar='k api-resources --sort-by name'
 
 alias kac='k auth can-i'
@@ -320,15 +323,23 @@ alias kac='k auth can-i'
 alias ktn='k top node'
 alias ktp='k top pod'
 
-
 alias kexpl='k explain'
 alias kexplr='k explain --recursive=true'
 
+alias krol='k rollout'
+alias krolh='k rollout history'
+alias krols='k rollout status'
+alias krolp='k rollout pause'
+alias krolr='k rollout resume'
+alias krolrs='k rollout restart'
+alias krolu='k rollout undo'
 
+# Exec
 alias kexe='k exec'
 alias kexens='k exec -n'
 alias kexeit='k exec -it'
 alias kexeitns='k exec -it -n'
+# Logs
 alias kl='k logs --all-containers --ignore-errors'
 alias klns='k logs --all-containers --ignore-errors -n'
 alias klf='k logs --all-containers --ignore-errors -f'
@@ -364,6 +375,8 @@ alias hru='helm repo update'
 # helm template
 alias ht='helm template --debug'
 alias htns='helm template --debug -n'
+# helm others
+alias hpull='helm pull'
 
 # Docker
 alias d='docker'
