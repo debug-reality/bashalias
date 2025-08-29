@@ -43,10 +43,10 @@ alias kaf='k apply -f'
 alias krff='k replace --force -f'
 
 # Config, Context and Namespace
-alias kcfg='k config'
-alias kcfggc='k config get-contexts'
-alias kcfgcc='k config current-context'
-alias kcfguc='k config use-context'
+alias kcf='k config'
+alias kcfgc='k config get-contexts'
+alias kcfcc='k config current-context'
+alias kcfuc='k config use-context'
 alias kctx='k config use-context'
 alias knsf='k config set-context --current --namespace'
 alias kns='fn(){ k get ns --field-selector "metadata.name=$1" --ignore-not-found --no-headers | grep -E "^.+$" 1>/dev/null && k config set-context --current --namespace $1 || echo "No namespace \"$1\" found." && return 1;  unset -f fn; }; fn'
@@ -182,10 +182,18 @@ alias kgens='k get events -n'
 alias kgensw='k get events -w -n'
 
 
-# Labels
+# Get Labels
 alias kglb='kgl_f() { k get "$@" -o yaml | yq e '.metadata.labels' -; }; kgl_f'
 alias kgplb='kgpl_f() { k get pod "$@" -o yaml | yq e '.metadata.labels' -; }; kgpl_f'
 alias kgdlb='kgdl_f() { k get deployment "$@" -o yaml | yq e '.metadata.labels' -; }; kgdl_f'
+# Label
+alias klb='k label'
+alias klbp='k label pod'
+alias klbpns='k label pod -n'
+alias klbd='k label deployment'
+alias klbdns='k label deployment -n'
+alias klbns='k label ns'
+
 
 # Annotations
 alias kgan='kgan_f() { k get "$@" -o yaml | yq e '.metadata.annotations' -; }; kgan_f'
@@ -289,7 +297,9 @@ alias kdelfin='k patch -p "{\"metadata\":{\"finalizers\":null}}" --type=merge'
 # Expose
 alias kex='k expose'
 alias kexp='k expose pod'
+alias kexpns='k expose pod -n'
 alias kexd='k expose deploy'
+alias kexpdns='k expose deploy -n'
 
 
 # Other
@@ -326,54 +336,56 @@ alias cj='cleanjson'
 
 # Helm aliasses
 alias h='helm'
-alias hin='helm install'
-alias hindr='helm install --dry-run --debug'
+alias hi='helm install'
+alias hidr='helm install --dry-run --debug'
 # Upgrade or Install
 alias hup='helm upgrade --install'
 alias hupdr='helm upgrade --install --dry-run --debug'
-alias hun='helm uninstall'
+alias hu='helm uninstall'
 # Helm releases
 alias hl='helm list'
+alias hlns='helm list -n'
 alias hla='helm list -a'
 # Helm repos
 alias hrl='helm repo list'
 alias hru='helm repo update'
 # helm template
 alias ht='helm template --debug'
+alias htns='helm template --debug -n'
 
 # Docker
-alias dk='docker'
-alias dkb='docker build'
-alias dkbt='docker build -t'
-alias dkt='docker tag'
-alias dkr='docker run'
-alias dkrnm='docker run --name'
-alias dkrde='docker run --detach'
-alias dkrdenm='docker run --detach --name'
-alias dkimgs='docker images'
-alias dkrmi='docker rmi'
-alias dkrm='docker rm'
-alias dkps='docker ps'
-alias dkpsa='docker ps -a'
-alias dkpush='docker push'
-alias dkpull='docker pull'
+alias d='docker'
+alias db='docker build'
+alias dbt='docker build -t'
+alias dt='docker tag'
+alias dr='docker run'
+alias drnm='docker run --name'
+alias drde='docker run --detach'
+alias drdenm='docker run --detach --name'
+alias dimgs='docker images'
+alias drmi='docker rmi'
+alias drm='docker rm'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias dpush='docker push'
+alias dpull='docker pull'
 
 # Podman
-alias pm='podman'
-alias pmb='podman build'
-alias pmbt='podman build -t'
-alias pmt='podman tag'
-alias pmr='podman run'
-alias pmrnm='podman run --name'
-alias pmrde='podman run --detach'
-alias pmrdenm='podman run --detach --name'
-alias pmimgs='podman images'
-alias pmrmi='podman rmi'
-alias pmrm='podman rm'
-alias pmps='podman ps'
-alias pmpsa='podman ps -a'
-alias pmpush='podman push'
-alias pmpull='podman pull'
+alias p='podman'
+alias pb='podman build'
+alias pbt='podman build -t'
+alias pt='podman tag'
+alias pr='podman run'
+alias prnm='podman run --name'
+alias prde='podman run --detach'
+alias prdenm='podman run --detach --name'
+alias pimgs='podman images'
+alias prmi='podman rmi'
+alias prm='podman rm'
+alias pps='podman ps'
+alias ppsa='podman ps -a'
+alias ppush='podman push'
+alias ppull='podman pull'
 
 # Kubectl aliasses autocompletion
 source <(curl -L https://raw.githubusercontent.com/cykerway/complete-alias/refs/heads/master/complete_alias)
