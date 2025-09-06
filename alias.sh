@@ -39,6 +39,22 @@ alias kcsec='k create secret generic'
 alias kcsecns='k create secret generic -n'
 alias kcsecdry='k create secret generic --dry-run=client -o yaml'
 alias kcsecdryns='k create secret generic --dry-run=client -o yaml -n'
+# role
+alias kcr='k create role'
+alias kcrns='k create role -n'
+alias kcrdry='k create role --dry-run=client -o yaml'
+alias kcrdryns='k create role --dry-run=client -o yaml -n'
+# rolebinding
+alias kcrb='k create rolebinding'
+alias kcrbns='k create rolebinding -n'
+alias kcrbdry='k create rolebinding --dry-run=client -o yaml'
+alias kcrbdryns='k create rolebinding --dry-run=client -o yaml -n'
+# clusterrole
+alias kccr='k create clusterrole'
+alias kccrdry='k create clusterrole --dry-run=client -o yaml'
+# clusterrolebinding
+alias kccrb='k create clusterrolebinding'
+alias kccrbdry='k create clusterrolebinding --dry-run=client -o yaml'
 
 # Apply
 alias ka='k apply'
@@ -64,6 +80,9 @@ alias kg='k get'
 alias kgy='kgy_f() { k get -o yaml "$@" | cy; }; kgy_f'
 alias kgyy='kgyy_f() { k get -o yaml "$@" | yq e -; }; kgyy_f'
 alias kga='k get all'
+alias kgans='k get all -n'
+alias kgaa='k get all -A'
+
 # Pod
 alias kgp='k get pod'
 alias kgpw='k get pod -w'
@@ -187,12 +206,17 @@ alias kge='k get events'
 alias kgew='k get events -w'
 alias kgens='k get events -n'
 alias kgensw='k get events -w -n'
-
+# serviceaccount
+alias kgsa='k get sa'
+alias kgsans='k get sa -n'
+alias kgsaa='k get sa -A'
+alias kgsay='kgsay_f() { k get sa -o yaml "$@" | cy; }; kgsay_f'
+alias kgsayy='kgsayy_f() { k get sa -o yaml "$@" | yq e -; }; kgsayy_f'
 
 # Get Labels
-alias kglb='kgl_f() { k get "$@" -o yaml | yq e '.metadata.labels' -; }; kgl_f'
-alias kgplb='kgpl_f() { k get pod "$@" -o yaml | yq e '.metadata.labels' -; }; kgpl_f'
-alias kgdlb='kgdl_f() { k get deployment "$@" -o yaml | yq e '.metadata.labels' -; }; kgdl_f'
+alias kglb='kgl_f() { k get "$@" -o yaml | yq e ".metadata.labels" -; }; kgl_f'
+alias kgplb='kgpl_f() { k get pod "$@" -o yaml | yq e ".metadata.labels" -; }; kgpl_f'
+alias kgdlb='kgdl_f() { k get deployment "$@" -o yaml | yq e ".metadata.labels" -; }; kgdl_f'
 # Label
 alias klb='k label'
 alias klbp='k label pod'
@@ -203,9 +227,9 @@ alias klbns='k label ns'
 
 
 # Get Annotations
-alias kgan='kgan_f() { k get "$@" -o yaml | yq e '.metadata.annotations' -; }; kgan_f'
-alias kgpan='kgpan_f() { k get pod "$@" -o yaml | yq e '.metadata.annotations' -; }; kgpan_f'
-alias kgdan='kgdan_f() { k get deployment "$@" -o yaml | yq e '.metadata.annotations' -; }; kgdan_f'
+alias kgan='kgan_f() { k get "$@" -o yaml | yq e ".metadata.annotations" -; }; kgan_f'
+alias kgpan='kgpan_f() { k get pod "$@" -o yaml | yq e ".metadata.annotations" -; }; kgpan_f'
+alias kgdan='kgdan_f() { k get deployment "$@" -o yaml | yq e ".metadata.annotations" -; }; kgdan_f'
 # Annotation
 alias kan='k annotate'
 alias kanp='k annotate pod'
@@ -249,7 +273,8 @@ alias kdnp='k describe netpol'
 alias kdnpns='k describe netpol -n'
 alias kdlr='k describe limits'
 alias kdrq='k describe quota'
-
+alias kdsa='k describe sa'
+alias kdsans='k describe sa -n'
 
 # Edit
 alias ke='k edit'
@@ -269,6 +294,10 @@ alias keingns='k edit ingress -n'
 alias kesec='k edit secret'
 alias kesecns='k edit secret -n'
 alias kesc='k edit sc'
+alias ker='k edit role'
+alias kerns='k edit role -n'
+alias kerb='k edit rolebinding'
+alias kerbns='k edit rolebinding -n'
 alias kecr='k edit clusterrole'
 alias kecrb='k edit clusterrolebinding'
 alias kecm='k edit cm'
@@ -277,7 +306,12 @@ alias kenp='k edit netpol'
 alias kenpns='k edit netpol -n'
 alias kelr='k edit limits'
 alias kerq='k edit quota'
+alias kesa='k edit sa'
+alias kesans='k edit sa -n'
 
+# Scale
+alias kscaled='k scale deployment'
+alias kscaledns='k scale deployment -n'
 
 # Delete
 alias kdel='k delete'
@@ -306,6 +340,15 @@ alias kdelnp='k delete netpol'
 alias kdelnpns='k delete netpol -n'
 alias kdellr='k delete limits'
 alias kdelrq='k delete quota'
+alias kdelpv='k delete pv'
+alias kdelpvc='k delete pvc'
+alias kdelpvcns='k delete pvc -n'
+alias kdelr='k delete role'
+alias kdelrns='k delete role -n'
+alias kdelrb='k delete rolebinding'
+alias kdelrbns='k delete rolebinding -n'
+alias kdelsa='k delete sa'
+alias kdelsans='k delete sa -n'
 
 alias kdelfin='k patch -p "{\"metadata\":{\"finalizers\":null}}" --type=merge'
 
@@ -364,14 +407,15 @@ alias cj='cleanjson'
 alias h='helm'
 alias hin='helm install'
 alias hinns='helm install -n'
+alias hindryns='helm install --dry-run --debug -n'
 alias hincns='helm install --create-namespace -n'
-alias hindr='helm install --dry-run --debug'
+alias hindrycns='helm install --dry-run --debug --create-namespace -n'
 # Upgrade or Install
 alias hup='helm upgrade --install'
 alias hupns='helm upgrade --install -n'
-alias hupcns='helm upgrade --install --create-namespace -n'
-alias hupdr='helm upgrade --install --dry-run --debug'
+alias hupdryns='helm upgrade --install --dry-run --debug -n'
 alias hun='helm uninstall'
+alias hunns='helm uninstall -n'
 # Helm releases
 alias hl='helm list'
 alias hlns='helm list -n'
