@@ -484,8 +484,8 @@ set expandtab
 END
 }
 
-set_ps1
-config_vim
+# set_ps1
+# config_vim
 
 # cat >> ~/.inputrc <<'EOF'
 # "\e[A": history-search-backward
