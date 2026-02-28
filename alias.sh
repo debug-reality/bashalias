@@ -465,11 +465,11 @@ alias ppull='podman pull'
 
 # Trivy
 source <(trivy completion bash)
-alias tri='trivy --skip-db-update --skip-java-db-update --output'
-alias trijson='trivy --format json --skip-db-update --skip-java-db-update --output'
-alias tricdx='trivy --format cyclonedx --skip-db-update --skip-java-db-update --output'
-alias trispdx='trivy --format spdx --skip-db-update --skip-java-db-update --output'
-alias trispdxjson='trivy --format spdx-json --skip-db-update --skip-java-db-update --output'
+alias tri='trivy --output'
+alias trijson='trivy --format json --output'
+alias tricydx='trivy --format cyclonedx --output'
+alias trispdx='trivy --format spdx --output'
+alias trispdxjson='trivy --format spdx-json --output'
 
 # BOM
 source <(bom completion bash)
