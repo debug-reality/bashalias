@@ -463,6 +463,20 @@ alias ppsa='podman ps -a'
 alias ppush='podman push'
 alias ppull='podman pull'
 
+# Trivy
+source <(trivy completion bash)
+alias tri='trivy --skip-db-update --skip-java-db-update --output'
+alias trijson='trivy --format json --skip-db-update --skip-java-db-update --output'
+alias tricdx='trivy --format cyclonedx --skip-db-update --skip-java-db-update --output'
+alias trispdx='trivy --format spdx --skip-db-update --skip-java-db-update --output'
+alias trispdxjson='trivy --format spdx-json --skip-db-update --skip-java-db-update --output'
+
+# BOM
+source <(bom completion bash)
+alias bomspdx='bom generate --format tag-value --output'
+alias bomspdxjson='bom generate --format json --output'
+
+
 # Kubectl aliasses autocompletion
 source <(curl -L https://raw.githubusercontent.com/cykerway/complete-alias/refs/heads/master/complete_alias)
 complete -F _complete_alias "${!BASH_ALIASES[@]}"
