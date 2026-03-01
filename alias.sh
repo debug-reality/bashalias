@@ -489,6 +489,9 @@ alias crirm='crictl rm'
 alias crirmi='crictl rmi'
 alias crilogs='crictl logs'
 
+# Istio
+alias istiinj='k label namespace istio-injection=enabled'
+
 # Others
 source <(kube-bench completion bash)
 source <(kube-linter completion bash)
