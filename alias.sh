@@ -476,11 +476,10 @@ source <(bom completion bash)
 alias bomspdx='bom generate --format tag-value --output'
 alias bomspdxjson='bom generate --format json --output'
 
-# Kube Bench
+# Others
 source <(kube-bench completion bash)
-# Kube lint
 source <(kube-linter completion bash)
-
+source <(kubesec completion bash)
 
 # Kubectl aliasses autocompletion
 source <(curl -L https://raw.githubusercontent.com/cykerway/complete-alias/refs/heads/master/complete_alias)
