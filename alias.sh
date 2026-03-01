@@ -463,6 +463,9 @@ alias ppsa='podman ps -a'
 alias ppush='podman push'
 alias ppull='podman pull'
 
+
+
+
 # Trivy
 source <(trivy completion bash)
 alias tri='trivy --output'
@@ -475,6 +478,16 @@ alias trispdxjson='trivy --format spdx-json --output'
 source <(bom completion bash)
 alias bomspdx='bom generate --format tag-value --output'
 alias bomspdxjson='bom generate --format json --output'
+
+# crictl - Container Runtime Interface CLI
+alias cr='crictl'
+alias crps='crictl ps'
+alias crpsa='crictl ps -a'
+alias cri='crictl images'
+alias crpull='crictl pull'
+alias crrm='crictl rm'
+alias crrmi='crictl rmi'
+alias crilogs='crictl logs'
 
 # Others
 source <(kube-bench completion bash)
