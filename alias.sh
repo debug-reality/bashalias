@@ -490,7 +490,7 @@ alias crirmi='crictl rmi'
 alias crilogs='crictl logs'
 
 # Istio
-alias istiinj='k label namespace istio-injection=enabled'
+alias istiinj='istiinj_f() { k label namespace "$1" istio-injection=enabled; }; istiinj_f'
 
 # Others
 source <(kube-bench completion bash)
