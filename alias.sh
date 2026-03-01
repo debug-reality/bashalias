@@ -480,13 +480,13 @@ alias bomspdx='bom generate --format tag-value --output'
 alias bomspdxjson='bom generate --format json --output'
 
 # crictl - Container Runtime Interface CLI
-alias cr='crictl'
-alias crps='crictl ps'
-alias crpsa='crictl ps -a'
-alias cri='crictl images'
-alias crpull='crictl pull'
-alias crrm='crictl rm'
-alias crrmi='crictl rmi'
+alias cri='crictl'
+alias crips='crictl ps'
+alias cripsa='crictl ps -a'
+alias criimgs='crictl images'
+alias cripull='crictl pull'
+alias crirm='crictl rm'
+alias crirmi='crictl rmi'
 alias crilogs='crictl logs'
 
 # Others
