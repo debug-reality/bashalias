@@ -520,14 +520,14 @@ set expandtab
 END
 }
 
-# set_ps1
-# config_vim
+set_ps1
+config_vim
 
-# cat >> ~/.inputrc <<'EOF'
-# "\e[A": history-search-backward
-# "\e[B": history-search-forward
-# set show-all-if-ambiguous on
-# set completion-ignore-case on
-# EOF
+cat >> ~/.inputrc <<'EOF'
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+set show-all-if-ambiguous on
+set completion-ignore-case on
+EOF
 
-# bind -f  ~/.inputrc
+bind -f  ~/.inputrc
